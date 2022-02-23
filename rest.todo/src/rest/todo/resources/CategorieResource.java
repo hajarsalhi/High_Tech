@@ -13,18 +13,17 @@ import javax.ws.rs.core.UriInfo;
 import javax.xml.bind.JAXBElement;
 
 import rest.todo.dao.CategorieDao;
-import rest.todo.dao.TodoDao;
 import rest.todo.model.Categorie;
-import rest.todo.model.Todo;
+
 
 public class CategorieResource {
 	@Context
     UriInfo uriInfo;
     @Context
     Request request;
-    String id;
+    int id;
     
-    public CategorieResource(UriInfo uriInfo, Request request, String id) {
+    public CategorieResource(UriInfo uriInfo, Request request,int id) {
     	this.uriInfo = uriInfo;
     	this.request = request;
     	this.id = id;
@@ -60,14 +59,16 @@ public class CategorieResource {
         CategorieDao.instance.getModel().put(categorie.getId(), categorie);
         return res;
     }
+    
+    
     @PUT
-    @Consumes(MediaType.APPLICATION_XML)
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response putCategorie(JAXBElement<Categorie> categorie) {
         Categorie c = categorie.getValue();
         return putAndGetResponse(c);
     }
     @DELETE
-    public void deleteTodo() {
+    public void deleteCategorie() {
         Categorie c = CategorieDao.instance.getModel().remove(id);
         if(c==null)
             throw new RuntimeException("Delete: Todo with " + id +  " not found");

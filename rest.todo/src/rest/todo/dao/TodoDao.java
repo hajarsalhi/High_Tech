@@ -19,6 +19,9 @@ public enum TodoDao {
         todo = new Todo("2", "Faire 10000 pas");
         todo.setDescription("afin de garder une bonne santé");
         contentProvider.put("2", todo);
+        todo = new Todo("5", "blabla");
+        todo.setDescription("matay");
+        contentProvider.put("2", todo);
 
     }
     public Map<String, Todo> getModel(){

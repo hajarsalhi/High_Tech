@@ -17,15 +17,13 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.UriInfo;
 
-import rest.todo.dao.CategorieDao;
-
-import rest.todo.model.Categorie;
-
+import rest.todo.dao.PanierDao;
+import rest.todo.model.Panier;
 
 /// Will map the resource to the URL categories
-@Path("/categories")
+@Path("/paniers")
 
-public class CategoriesResource {
+public class PaniersResource {
 	 // Allows to insert contextual objects into the class,
     // e.g. ServletContext, Request, Response, UriInfo
     @Context
@@ -36,10 +34,10 @@ public class CategoriesResource {
     // Return the list of categories for applications
     @GET
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    public List<Categorie> getCategories() {
-        List<Categorie> categories = new ArrayList<Categorie>();
-        categories.addAll(CategorieDao.instance.getModel().values());
-        return categories;
+    public List<Panier> getPaniers() {
+        List<Panier> paniers = new ArrayList<Panier>();
+        paniers.addAll(PanierDao.instance.getModel().values());
+        return paniers;
     }
     // Use http://localhost:8080/com.vogella.jersey/rest/hightech/count
     // to get the total number of records
@@ -47,7 +45,7 @@ public class CategoriesResource {
     @Path("count")
     @Produces(MediaType.TEXT_PLAIN)
     public String getCount() {
-        int count = CategorieDao.instance.getModel().size();
+        int count = PanierDao.instance.getModel().size();
         return String.valueOf(count);
     }
     
@@ -55,9 +53,9 @@ public class CategoriesResource {
     // treated as a parameter and passed to the TodoResources
     // Allows to type http://localhost:8080/rest.todo/rest/todos/1
     // 1 will be treaded as parameter todo and passed to TodoResource
-    @Path("{categorie}")
-    public CategorieResource getCategorie(@PathParam("categorie") int id) {
-        return new CategorieResource(uriInfo, request, id);
+    @Path("{panier}")
+    public PanierResource getPanier(@PathParam("panier") int id) {
+        return new PanierResource(uriInfo, request, id);
     }
-
+    
 }

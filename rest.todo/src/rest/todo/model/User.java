@@ -3,10 +3,12 @@ package rest.todo.model;
 public class User {
 	
 	public int id ;
+	public String nom;
 	public boolean isAdmin ;
 	
-	public User(int id) {
+	public User(int id,String nom) {
 		this.id = id ;
+		this.nom = nom;
 		this.isAdmin = false ;
 	}
 	
@@ -16,6 +18,14 @@ public class User {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public String getNom() {
+		return nom;
+	}
+	
+	public void setNom(String nom) {
+		this.nom = nom;
 	}
 
 	public boolean isAdmin() {

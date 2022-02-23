@@ -11,13 +11,13 @@ import rest.todo.model.Categorie;
 public enum CategorieDao {
 instance;
 	
-	private Map<String, Categorie> contentProvider = new HashMap<>();
+	private Map<Integer, Categorie> contentProvider = new HashMap<>();
 	
 	private CategorieDao() {
 		getModels();
 	}
 	
-	public Map<String, Categorie> getModel(){
+	public Map<Integer, Categorie> getModel(){
 	        return contentProvider;
 	}
 	//afficher les categories
@@ -38,9 +38,9 @@ instance;
 			// Extract data from result set
 			while (rs.next()) {
 			// Retrieve by column name
-			System.out.println("ID: " + rs.getString("ID"));
-			Categorie cat = new Categorie(rs.getString("id"),rs.getString("libelle"));
-			contentProvider.put(rs.getString("id"), cat);
+			System.out.println("ID: " + rs.getInt("ID"));
+			Categorie cat = new Categorie(rs.getInt("id"),rs.getString("libelle"));
+			contentProvider.put(rs.getInt("id"), cat);
 		    }
 	    }catch (SQLException e) {
 			e.getMessage();
@@ -87,18 +87,18 @@ instance;
 	
 	//supprimer une categorie
 	
-	public int delete(String id) {
+	public String delete(int id) {
 		try {
 			DbManager db = new DbManager();
 			Connection conn = db.getConnection();
 			Statement stmt = conn.createStatement();
 			String QUERY = "DELETE FROM categorie WHERE id=" + id+" ";
 			stmt.executeUpdate(QUERY);
-			return 1;
+			return "element "+ id+" bien supprimé";
 		}catch (SQLException e) {
 			e.getMessage();
 			e.printStackTrace();
-			return (0);
+			return "erreur";
 			} finally {
 			}
 	}

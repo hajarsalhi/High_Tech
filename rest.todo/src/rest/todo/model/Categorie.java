@@ -2,19 +2,19 @@ package rest.todo.model;
 
 public class Categorie {
 	
-	private String id ;
+	private int id ;
 	private String libelle ;
 	
-	public Categorie(String id , String libelle) {
+	public Categorie(int id , String libelle) {
 		this.id = id ;
 		this.libelle = libelle;
 	}
 	
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

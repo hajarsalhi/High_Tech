@@ -36,7 +36,7 @@ public class TodosResource {
 
     // Return the list of todos to the user in the browser
     @GET
-    @Produces(MediaType.TEXT_XML)
+    @Produces(MediaType.APPLICATION_JSON)
     public List<Todo> getTodosBrowser() {
         List<Todo> todos = new ArrayList<Todo>();
         todos.addAll(TodoDao.instance.getModel().values());
@@ -44,13 +44,13 @@ public class TodosResource {
     }
 
     // Return the list of todos for applications
-    @GET
+  /*  @GET
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     public List<Todo> getTodos() {
         List<Todo> todos = new ArrayList<Todo>();
         todos.addAll(TodoDao.instance.getModel().values());
         return todos;
-    }
+    }*/
 
     // retuns the number of todos
     // Use http://localhost:8080/com.vogella.jersey.todo/rest/todos/count
@@ -78,8 +78,6 @@ public class TodosResource {
 
         servletResponse.sendRedirect("../create_todo.html");
     }
-    
-   
 
     // Defines that the next path parameter after todos is
     // treated as a parameter and passed to the TodoResources
@@ -88,8 +86,6 @@ public class TodosResource {
     @Path("{todo}")
     public TodoResource getTodo(@PathParam("todo") String id) {
         return new TodoResource(uriInfo, request, id);
-    
-
     }
 
 }
