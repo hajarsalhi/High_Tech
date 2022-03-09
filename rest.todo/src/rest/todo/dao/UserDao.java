@@ -50,7 +50,7 @@ private Map<Integer, User> contentProvider = new HashMap<>();
 			Connection conn = db.getConnection();
 			Statement stmt = conn.createStatement();
 			String QUERY = "INSERT INTO user('id','isAdmin', 'nom')"+
-			"VALUES ("+model.getId()+","+model.getNom()+","+model.isAdmin+")";
+			"VALUES ("+model.getId()+","+model.getNom()+","+model.isAdmin()+")";
 			stmt.executeUpdate(QUERY);
 			return (1);
 		}
@@ -59,6 +59,42 @@ private Map<Integer, User> contentProvider = new HashMap<>();
 			e.printStackTrace();
 			return (0);
 		} finally {}
+	}
+	
+	//modifier un user 
+	
+	public int post(User model) {
+		try {
+			DbManager db = new DbManager();
+			Connection conn = db.getConnection();
+			Statement stmt = conn.createStatement();
+			String QUERY ="UPDATE user set" + "id=" + model.getId()+
+					"," + "nom=" + model.getNom()+ "isAdmin=" + model.isAdmin()+"WHERE id =" +model.getId();
+			stmt.executeUpdate(QUERY);
+			return 1;
+		}catch (SQLException e) {
+			e.getMessage();
+			e.printStackTrace();
+			return (0);
+		} finally {}
+	}
+	
+	//supprimer un user
+	
+	public String delete(int id) {
+		try {
+			DbManager db = new DbManager();
+			Connection conn = db.getConnection();
+			Statement stmt = conn.createStatement();
+			String QUERY = "DELETE FROM user WHERE id=" + id+" ";
+			stmt.executeUpdate(QUERY);
+			return "element "+ id+" bien supprimé";
+		}catch (SQLException e) {
+			e.getMessage();
+			e.printStackTrace();
+			return "erreur";
+			} finally {
+			}
 	}
 	
 	

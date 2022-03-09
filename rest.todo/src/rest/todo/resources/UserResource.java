@@ -12,18 +12,18 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import javax.xml.bind.JAXBElement;
 
-import rest.todo.dao.CategorieDao;
-import rest.todo.model.Categorie;
+import rest.todo.dao.UserDao;
+import rest.todo.model.User;
 
-
-public class CategorieResource {
+public class UserResource {
+	
 	@Context
     UriInfo uriInfo;
     @Context
     Request request;
     int id;
     
-    public CategorieResource(UriInfo uriInfo, Request request,int id) {
+    public UserResource(UriInfo uriInfo, Request request,int id) {
     	this.uriInfo = uriInfo;
     	this.request = request;
     	this.id = id;
@@ -31,36 +31,37 @@ public class CategorieResource {
     //Application integration
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Categorie getCategorie() {
-    	Categorie categorie = CategorieDao.instance.getModel().get(id);
-    	if(categorie == null) {
-    		throw new RuntimeException("Get: Categorie with " + id +  " not found");
+    public User getUser() {
+    	User user = UserDao.instance.getModel().get(id);
+    	if(user == null) {
+    		throw new RuntimeException("Get: User with " + id +  " not found");
     	}
-    	return categorie;
+    	return user;
     }
 
-    private Response putAndGetResponse(Categorie categorie) {
+    private Response putAndGetResponse(User user) {
         Response res;
-        if(CategorieDao.instance.getModel().containsKey(categorie.getId())) {
+        if(UserDao.instance.getModel().containsKey(user.getId())) {
             res = Response.noContent().build();
         } else {
             res = Response.created(uriInfo.getAbsolutePath()).build();
         }
-        CategorieDao.instance.getModel().put(categorie.getId(), categorie);
+        UserDao.instance.getModel().put(user.getId(), user);
         return res;
     }
     
     
     @PUT
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public Response putCategorie(JAXBElement<Categorie> categorie) {
-        Categorie c = categorie.getValue();
-        return putAndGetResponse(c);
+    public Response putUser(JAXBElement<User> user) {
+        User u = user.getValue();
+        return putAndGetResponse(u);
     }
     @DELETE
-    public void deleteCategorie() {
-        Categorie c = CategorieDao.instance.getModel().remove(id);
-        if(c==null)
+    public void deleteUser() {
+        User u = UserDao.instance.getModel().remove(id);
+        if(u==null)
             throw new RuntimeException("Delete: Todo with " + id +  " not found");
     }
+
 }

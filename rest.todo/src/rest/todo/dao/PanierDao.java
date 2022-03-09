@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import rest.todo.model.Article;
+import rest.todo.model.Categorie;
 import rest.todo.model.Panier;
 
 public enum PanierDao {
@@ -48,13 +49,51 @@ instance;
 			e.printStackTrace();
 		}
 	}
-	//supprimer un article 
+	
+	//inserer un panier
+	
+	public int put(Panier model) {
+		try {
+			DbManager db = new DbManager();
+			Connection conn = db.getConnection();
+			Statement stmt = conn.createStatement();
+			String QUERY = "INSERT INTO panier('id', 'prixTotal')"+
+			"VALUES ("+model.getId()+","+model.getPrixTotal()+")";
+			stmt.executeUpdate(QUERY);
+			return (1);
+		}
+		catch (SQLException e) {
+			e.getMessage();
+			e.printStackTrace();
+			return (0);
+		} finally {}
+	}
+	
+	//modifier le panier
+	
+	public int post(Panier model) {
+		try {
+			DbManager db = new DbManager();
+			Connection conn = db.getConnection();
+			Statement stmt = conn.createStatement();
+			String QUERY ="UPDATE Panier set" + "id=" + model.getId()+
+					"," + "prixTotal=" + model.getPrixTotal() + "WHERE id =" +model.getId();
+			stmt.executeUpdate(QUERY);
+			return 1;
+		}catch (SQLException e) {
+			e.getMessage();
+			e.printStackTrace();
+			return (0);
+		} finally {}
+	}
+	
+	//supprimer un article dans le panier 
 	public String delete(int id) {
 		try {
 			DbManager db = new DbManager();
 			Connection conn = db.getConnection();
 			Statement stmt = conn.createStatement();
-			String QUERY = "DELETE ref_article,ref_panier FROM panierarticle WHERE ref_article=" + id+" ";
+			String QUERY = "DELETE FROM panierarticle WHERE ref_article=" + id+" ";
 			stmt.executeUpdate(QUERY);
 			return "element "+ id+" bien supprimé";
 		}catch (SQLException e) {

@@ -16,7 +16,6 @@ public class Panier {
 		this.id = id;
 		this.listeArticles = listeArticles;
 		this.prixTotal = 0.0;
-		this.quantite = 0;
 	}
 
 
@@ -46,8 +45,6 @@ public class Panier {
 
 
 	public int getQuantite() {
-		for(Article art : listeArticles)
-			quantite+= 1;
 		return quantite;
 	}
 
