@@ -3,8 +3,9 @@ package rest.todo.model;
 public class User {
 	
 	public int id ;
-	public String nom;
 	public boolean isAdmin ;
+	public String nom;
+	
 	
 	public User(int id,String nom) {
 		this.id = id ;

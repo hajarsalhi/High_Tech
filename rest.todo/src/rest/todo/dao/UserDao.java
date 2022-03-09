@@ -49,7 +49,7 @@ private Map<Integer, User> contentProvider = new HashMap<>();
 			DbManager db = new DbManager();
 			Connection conn = db.getConnection();
 			Statement stmt = conn.createStatement();
-			String QUERY = "INSERT INTO user('id', 'nom','isAdmin')"+
+			String QUERY = "INSERT INTO user('id','isAdmin', 'nom')"+
 			"VALUES ("+model.getId()+","+model.getNom()+","+model.isAdmin+")";
 			stmt.executeUpdate(QUERY);
 			return (1);
